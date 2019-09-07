@@ -1,0 +1,6 @@
+
+.idea/
+
+target/test-classes/wiley/com/Pages/PageObject.class
+
+*.class
