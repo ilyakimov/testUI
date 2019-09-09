@@ -16,6 +16,9 @@ public class PageHome extends PageObject {
   @FindBy(xpath = "//a[text()[contains(.,'WHO WE SERVE')]]")
   public WebElement btnWHOWESERVE;
 
+  @FindBy(xpath = "//a[text()[contains(.,'SUBJECTS')]]")
+  public WebElement btnSUBJECTS;
+
   @FindBy(xpath = "//a[text()[contains(.,'Students')]]")
   public WebElement btnStudents;
 
@@ -64,6 +67,51 @@ public class PageHome extends PageObject {
   @FindBy(xpath = "//button[@class='glyphicon glyphicon-search']")
   public WebElement btnSearch;
 
+  @FindBy(xpath = "//li[@class='dropdown-item dropdown-submenu']/a[text()[contains(.,'Education')]]")
+  public WebElement btnEducation;
+
+  @FindBy(xpath = "//li[@class='dropdown-item dropdown-submenu']/a[text()[contains(.,'Education')]]")
+  public WebElement Education;
+
+  @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Information & Library Science')]]")
+  public WebElement liInformationLibraryScience;
+
+  @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Education & Public Policy')]]")
+  public WebElement liEducationPublicPolicy;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'K-12 General')]]")
+    public WebElement liK12General;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Higher Education General')]]")
+    public WebElement liHigherEducationGeneral;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Vocational Technology')]]")
+    public WebElement liVocationalTechnology;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Conflict Resolution & Mediation (School settings)')]]")
+    public WebElement liConflictResolutionMediation;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Curriculum Tools- General')]]")
+    public WebElement liCurriculumToolsGeneral;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Special Educational Needs')]]")
+    public WebElement liSpecialEducationalNeeds;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Theory of Education')]]")
+    public WebElement liTheoryOfEducation;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Education Special Topics')]]")
+    public WebElement liEducationSpecialTopics;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Educational Research & Statistics')]]")
+    public WebElement liEducationalResearchStatistics;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Literacy & Reading')]]")
+    public WebElement liLiteracyReading;
+
+    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Classroom Management')]]")
+    public WebElement liClassroomManagement;
+
   public PageHome(WebDriver driver) {
     super(driver);
   }
@@ -102,31 +150,34 @@ public class PageHome extends PageObject {
     getWhenVisible(By.xpath("//section[@class='product-item']//span[@class='search-highlight'][text()='"+name+"']"));
   }
 
-  public boolean seeBtn(String name){
+  public boolean seeProductButton(String name){
     int countProduct = driver.findElements(By.xpath("//section[@class='product-item']//span[@class='search-highlight'][text()='"+name+"']")).size();
-  //  for (int i = 1; i < countProduct; i++){
-    List<WebElement> myResult = driver.findElements(By.xpath("//button[@type='submit']"));
-    int countAddToCart = myResult.size();
-  //  int countAddToCart = 0;
-  //  countAddToCart = driver.findElements(By.xpath("//form")).size();
-
-      /*
-      WebElement btn2 = driver.findElement(By.xpath(
-          "//div[@class='products-list']//section[@class='product-item'][" + i
-              + "]//div[@id='tabContentStyle']//a[@class='small-button learn-more-button']"));
-*/
-  //  }
-  //  int a = btn.getSize();
-    // Add to cart
-    //  "//div[@class='products-list']//section[@class='product-item'][1]//div[@id='tabContentStyle']//button[@class='small-button add-to-cart-button js-add-to-cart']"
-    System.out.println(countAddToCart);
-    //View on Wiley Online Library
-    // "//div[@class='products-list']//section[@class='product-item'][6]//div[@id='tabContentStyle']//a[@class='small-button learn-more-button']"
-    boolean m = (countProduct == 1);
-    if (m==true) {
-      return true;
-    } else {
+      int i = 1;
+      while (i < countProduct){
+          int btnAddToCart = driver.findElements(By.xpath("//div[@class='products-list']//section[@class='product-item']["+i+"]//div[@id='tabContentStyle']//button[@class='small-button add-to-cart-button js-add-to-cart']")).size();
+          int btnLearnMoreButton = driver.findElements(By.xpath("//div[@class='products-list']//section[@class='product-item']["+i+"]//div[@id='tabContentStyle']//a[@class='small-button learn-more-button']")).size();
+          if ((btnAddToCart >= 1) || (btnLearnMoreButton >= 1)) {
+              return true;
+          } else {
+              return false;
+          }
+      }
       return false;
-    }
+  }
+
+  public void seeItemsAreDisplayedUnderSubjects(){
+    liInformationLibraryScience.isDisplayed();
+    liEducationPublicPolicy.isDisplayed();
+    liK12General.isDisplayed();
+    liHigherEducationGeneral.isDisplayed();
+    liVocationalTechnology.isDisplayed();
+    liConflictResolutionMediation.isDisplayed();
+    liCurriculumToolsGeneral.isDisplayed();
+    liSpecialEducationalNeeds.isDisplayed();
+    liTheoryOfEducation.isDisplayed();
+    liEducationSpecialTopics.isDisplayed();
+    liEducationalResearchStatistics.isDisplayed();
+    liLiteracyReading.isDisplayed();
+    liClassroomManagement.isDisplayed();
   }
 }
