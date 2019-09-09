@@ -1,6 +1,7 @@
 package wiley.com.Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -29,10 +30,5 @@ public class PageObject extends BaseTest {
     return element;
   }
 
-  public Boolean getWhenNotVisible(By locator) {
-    Boolean element = null;
-    WebDriverWait wait = new WebDriverWait(driver, DRIVERWAIT);
-    element = wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-    return element;
-  }
+  public static String deleteString = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE;
 }

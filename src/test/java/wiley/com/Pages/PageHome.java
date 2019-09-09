@@ -1,6 +1,11 @@
 package wiley.com.Pages;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Collections;
+import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -50,8 +55,14 @@ public class PageHome extends PageObject {
   @FindBy(xpath = "//input[@id='js-site-search-input']")
   public WebElement inputSearch;
 
-  @FindBy(xpath = "//input[@id='js-site-search-input']")
-  public WebElement inputSearch;
+  @FindBy(xpath = "//form[contains(@name, 'search_form_comp')]//aside")
+  public WebElement asideSearchAutocomplete;
+
+  @FindBy(xpath = "//div[@class='search-result-tabs-wrapper']")
+  public WebElement divSearchResult;
+
+  @FindBy(xpath = "//button[@class='glyphicon glyphicon-search']")
+  public WebElement btnSearch;
 
   public PageHome(WebDriver driver) {
     super(driver);
@@ -72,11 +83,50 @@ public class PageHome extends PageObject {
     waitForElementPresense(btnGovernment);
   }
 
-  public void searchByName(String name){
-    inputSearch.sendKeys(name);
-    display: none;
-    display: top;
-    // Отображение области
-    getWhenNotVisible(By.xpath("//div[contains(@class, 'product-list-wrapper')]//a[text()[contains(.,'"+name+"')]]"));
+  public void searchByNameThroughEnter(String name){
+    inputSearch.sendKeys(deleteString + name);
+    // Отображение области waitForElementPresense(asideSearchAutocomplete);
+    inputSearch.sendKeys(Keys.ENTER);
+    seeSearchResult(name);
+  }
+
+  public void searchByNameThroughClickBtn(String name){
+    inputSearch.sendKeys(deleteString + name);
+    // Отображение области waitForElementPresense(asideSearchAutocomplete);
+    btnSearch.click();
+    seeSearchResult(name);
+  }
+
+  public void seeSearchResult(String name){
+    waitForElementPresense(divSearchResult);
+    getWhenVisible(By.xpath("//section[@class='product-item']//span[@class='search-highlight'][text()='"+name+"']"));
+  }
+
+  public boolean seeBtn(String name){
+    int countProduct = driver.findElements(By.xpath("//section[@class='product-item']//span[@class='search-highlight'][text()='"+name+"']")).size();
+  //  for (int i = 1; i < countProduct; i++){
+    List<WebElement> myResult = driver.findElements(By.xpath("//button[@type='submit']"));
+    int countAddToCart = myResult.size();
+  //  int countAddToCart = 0;
+  //  countAddToCart = driver.findElements(By.xpath("//form")).size();
+
+      /*
+      WebElement btn2 = driver.findElement(By.xpath(
+          "//div[@class='products-list']//section[@class='product-item'][" + i
+              + "]//div[@id='tabContentStyle']//a[@class='small-button learn-more-button']"));
+*/
+  //  }
+  //  int a = btn.getSize();
+    // Add to cart
+    //  "//div[@class='products-list']//section[@class='product-item'][1]//div[@id='tabContentStyle']//button[@class='small-button add-to-cart-button js-add-to-cart']"
+    System.out.println(countAddToCart);
+    //View on Wiley Online Library
+    // "//div[@class='products-list']//section[@class='product-item'][6]//div[@id='tabContentStyle']//a[@class='small-button learn-more-button']"
+    boolean m = (countProduct == 1);
+    if (m==true) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
