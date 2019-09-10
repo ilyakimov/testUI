@@ -6,3 +6,9 @@ target/test-classes/wiley/com/Pages/PageObject.class
 *.class
 
 *.iml
+
+target/maven-status/maven-compiler-plugin/compile/default-compile/
+
+*.lst
+
+target/surefire-reports/

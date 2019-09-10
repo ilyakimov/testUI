@@ -2,10 +2,7 @@ package wiley.com.Pages;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Collections;
-import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -58,7 +55,7 @@ public class PageHome extends PageObject {
   @FindBy(xpath = "//input[@id='js-site-search-input']")
   public WebElement inputSearch;
 
-  @FindBy(xpath = "//form[contains(@name, 'search_form_comp')]//aside")
+  @FindBy(xpath = "//aside[@class='ui-autocomplete ui-front main-navigation-search-autocomplete ui-menu ui-widget ui-widget-content ps-container ps-theme-default']")
   public WebElement asideSearchAutocomplete;
 
   @FindBy(xpath = "//div[@class='search-result-tabs-wrapper']")
@@ -69,48 +66,6 @@ public class PageHome extends PageObject {
 
   @FindBy(xpath = "//li[@class='dropdown-item dropdown-submenu']/a[text()[contains(.,'Education')]]")
   public WebElement btnEducation;
-
-  @FindBy(xpath = "//li[@class='dropdown-item dropdown-submenu']/a[text()[contains(.,'Education')]]")
-  public WebElement Education;
-
-  @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Information & Library Science')]]")
-  public WebElement liInformationLibraryScience;
-
-  @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Education & Public Policy')]]")
-  public WebElement liEducationPublicPolicy;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'K-12 General')]]")
-    public WebElement liK12General;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Higher Education General')]]")
-    public WebElement liHigherEducationGeneral;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Vocational Technology')]]")
-    public WebElement liVocationalTechnology;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Conflict Resolution & Mediation (School settings)')]]")
-    public WebElement liConflictResolutionMediation;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Curriculum Tools- General')]]")
-    public WebElement liCurriculumToolsGeneral;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Special Educational Needs')]]")
-    public WebElement liSpecialEducationalNeeds;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Theory of Education')]]")
-    public WebElement liTheoryOfEducation;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Education Special Topics')]]")
-    public WebElement liEducationSpecialTopics;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Educational Research & Statistics')]]")
-    public WebElement liEducationalResearchStatistics;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Literacy & Reading')]]")
-    public WebElement liLiteracyReading;
-
-    @FindBy(xpath = "//div[@class='side-panel']//a[text()[contains(.,'Classroom Management')]]")
-    public WebElement liClassroomManagement;
 
   public PageHome(WebDriver driver) {
     super(driver);
@@ -133,14 +88,14 @@ public class PageHome extends PageObject {
 
   public void searchByNameThroughEnter(String name){
     inputSearch.sendKeys(deleteString + name);
-    // Отображение области waitForElementPresense(asideSearchAutocomplete);
+    waitForElementPresense(asideSearchAutocomplete);
+    assertEquals(asideSearchAutocomplete.getCssValue("display"), "block");
     inputSearch.sendKeys(Keys.ENTER);
     seeSearchResult(name);
   }
 
   public void searchByNameThroughClickBtn(String name){
     inputSearch.sendKeys(deleteString + name);
-    // Отображение области waitForElementPresense(asideSearchAutocomplete);
     btnSearch.click();
     seeSearchResult(name);
   }
@@ -163,21 +118,5 @@ public class PageHome extends PageObject {
           }
       }
       return false;
-  }
-
-  public void seeItemsAreDisplayedUnderSubjects(){
-    liInformationLibraryScience.isDisplayed();
-    liEducationPublicPolicy.isDisplayed();
-    liK12General.isDisplayed();
-    liHigherEducationGeneral.isDisplayed();
-    liVocationalTechnology.isDisplayed();
-    liConflictResolutionMediation.isDisplayed();
-    liCurriculumToolsGeneral.isDisplayed();
-    liSpecialEducationalNeeds.isDisplayed();
-    liTheoryOfEducation.isDisplayed();
-    liEducationSpecialTopics.isDisplayed();
-    liEducationalResearchStatistics.isDisplayed();
-    liLiteracyReading.isDisplayed();
-    liClassroomManagement.isDisplayed();
   }
 }

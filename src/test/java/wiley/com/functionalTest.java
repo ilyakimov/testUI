@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
+import wiley.com.Pages.PageEducation;
 import wiley.com.Pages.PageHome;
 
 public class functionalTest extends BaseTest {
@@ -21,7 +22,7 @@ public class functionalTest extends BaseTest {
 
   @DisplayName("Проверка работы поиска через Enter")
   @Test
-  public void CheckSearchFunctionalityThroughEnter() {
+  public void CheckSearchFunctionalityThroughEnter(){
     PageHome home = new PageHome(driver);
     home.searchByNameThroughEnter("Java");
   }
@@ -38,15 +39,16 @@ public class functionalTest extends BaseTest {
     assertTrue(home.seeProductButton(name));
   }
 
-  @DisplayName("Проверка работы поиска через Enter")
+  @DisplayName("Проверка отображения в меню 13 разделов бокового меню Subjects")
   @Test
-  public void test() {
+  public void CheckItemsSidePanelSubjects () {
     PageHome home = new PageHome(driver);
+    PageEducation education = new PageEducation(driver);
     Actions act = new Actions(driver);
     act.moveToElement(home.btnSUBJECTS).build().perform();
     home.btnEducation.click();
     assertTrue(driver.getTitle().contains("Education | Subjects | Wiley"));
-    assertEquals(driver.findElements(By.xpath("//div[@class='side-panel']//li")).size(), 13);
-    home.seeItemsAreDisplayedUnderSubjects();
+    assertEquals(driver.findElements(By.xpath(education.sidePanelSubjects)).size(), 13);
+    education.seeItemsAreDisplayedUnderSubjects();
   }
 }
