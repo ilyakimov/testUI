@@ -22,26 +22,28 @@ public class functionalTest extends BaseTest {
 
   @DisplayName("Проверка работы поиска через Enter")
   @Test
-  public void CheckSearchFunctionalityThroughEnter(){
+  public void CheckSearchFunctionalityThroughEnter() {
     PageHome home = new PageHome(driver);
     home.searchByNameThroughEnter("Java");
   }
 
   @DisplayName("Проверка работы поиска через Кнопку, " +
-                "Отображение 10 продуктов на странице, " +
-                "Отображаение хотя бы одной из кнопок AddToCart и View on Wiley Online Library у продукта")
+      "Отображение 10 продуктов на странице, " +
+      "Отображаение хотя бы одной из кнопок AddToCart и View on Wiley Online Library у продукта")
   @Test
-  public void CheckSearchFunctionalityThroughClickBtn(){
+  public void CheckSearchFunctionalityThroughClickBtn() {
     String name = "Java";
     PageHome home = new PageHome(driver);
     home.searchByNameThroughClickBtn(name);
-    assertEquals(driver.findElements(By.xpath("//section[@class='product-item']//span[@class='search-highlight'][text()='"+name+"']")).size(), 10);
+    assertEquals(driver.findElements(By.xpath(
+        "//section[@class='product-item']//span[@class='search-highlight'][text()='" + name + "']"))
+        .size(), 10);
     assertTrue(home.seeProductButton(name));
   }
 
   @DisplayName("Проверка отображения в меню 13 разделов бокового меню Subjects")
   @Test
-  public void CheckItemsSidePanelSubjects () {
+  public void CheckItemsSidePanelSubjects() {
     PageHome home = new PageHome(driver);
     PageEducation education = new PageEducation(driver);
     Actions act = new Actions(driver);

@@ -71,7 +71,7 @@ public class PageHome extends PageObject {
     super(driver);
   }
 
-  public void seeAllBtnMenuWHOWESERVE(){
+  public void seeAllBtnMenuWHOWESERVE() {
     waitForElementPresense(btnStudents);
     waitForElementPresense(btnInstructors);
     waitForElementPresense(btnBookAuthors);
@@ -86,7 +86,7 @@ public class PageHome extends PageObject {
     waitForElementPresense(btnGovernment);
   }
 
-  public void searchByNameThroughEnter(String name){
+  public void searchByNameThroughEnter(String name) {
     inputSearch.sendKeys(deleteString + name);
     waitForElementPresense(asideSearchAutocomplete);
     assertEquals(asideSearchAutocomplete.getCssValue("display"), "block");
@@ -94,29 +94,39 @@ public class PageHome extends PageObject {
     seeSearchResult(name);
   }
 
-  public void searchByNameThroughClickBtn(String name){
+  public void searchByNameThroughClickBtn(String name) {
     inputSearch.sendKeys(deleteString + name);
     btnSearch.click();
     seeSearchResult(name);
   }
 
-  public void seeSearchResult(String name){
+  public void seeSearchResult(String name) {
     waitForElementPresense(divSearchResult);
-    getWhenVisible(By.xpath("//section[@class='product-item']//span[@class='search-highlight'][text()='"+name+"']"));
+    getWhenVisible(By.xpath(
+        "//section[@class='product-item']//span[@class='search-highlight'][text()='" + name
+            + "']"));
   }
 
-  public boolean seeProductButton(String name){
-    int countProduct = driver.findElements(By.xpath("//section[@class='product-item']//span[@class='search-highlight'][text()='"+name+"']")).size();
-      int i = 1;
-      while (i < countProduct){
-          int btnAddToCart = driver.findElements(By.xpath("//div[@class='products-list']//section[@class='product-item']["+i+"]//div[@id='tabContentStyle']//button[@class='small-button add-to-cart-button js-add-to-cart']")).size();
-          int btnLearnMoreButton = driver.findElements(By.xpath("//div[@class='products-list']//section[@class='product-item']["+i+"]//div[@id='tabContentStyle']//a[@class='small-button learn-more-button']")).size();
-          if ((btnAddToCart >= 1) || (btnLearnMoreButton >= 1)) {
-              return true;
-          } else {
-              return false;
-          }
+  public boolean seeProductButton(String name) {
+    int countProduct = driver.findElements(By.xpath(
+        "//section[@class='product-item']//span[@class='search-highlight'][text()='" + name + "']"))
+        .size();
+    int i = 1;
+    while (i < countProduct) {
+      int btnAddToCart = driver.findElements(By.xpath(
+          "//div[@class='products-list']//section[@class='product-item'][" + i
+              + "]//div[@id='tabContentStyle']//button[@class='small-button add-to-cart-button js-add-to-cart']"))
+          .size();
+      int btnLearnMoreButton = driver.findElements(By.xpath(
+          "//div[@class='products-list']//section[@class='product-item'][" + i
+              + "]//div[@id='tabContentStyle']//a[@class='small-button learn-more-button']"))
+          .size();
+      if ((btnAddToCart >= 1) || (btnLearnMoreButton >= 1)) {
+        return true;
+      } else {
+        return false;
       }
-      return false;
+    }
+    return false;
   }
 }
